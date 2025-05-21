@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<h2>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="index.css">
+
+  <h1> <title>Camera Switch</title></h1>
+</head>
+<body>
+  <h1>Switch Camera </h1>
+  <video id="video" autoplay playsinline width="500" height="400"></video>
+  <br>
+   
+  <button id="switchCamera">Switch Camera </button>
+
+  <script>
+    let videoElement = document.getElementById("video");
+    let currentStream;
+    let usingFrontCamera = true;
+
+    async function startCamera() {
+      const constraints = {
+        video: { facingMode: usingFrontCamera ? "user" : "environment" } // Front: 'user', Back: 'environment'
+      };
+
+
+
+
+
+
+
+
+
+
+
+
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+      }
+
+      try {
+        currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+        videoElement.srcObject = currentStream;
+      } catch (error) {
+        console.error("Error accessing camera:", error);
+      }
+    }
+
+    document.getElementById("switchCamera").addEventListener("click", () => {
+      usingFrontCamera = !usingFrontCamera; // Toggle camera
+      startCamera();
+    });
+
+    // Start with the front camera by default
+    startCamera();
+
+
+
+
+
+
+
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
